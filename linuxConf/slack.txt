@@ -1,0 +1,5 @@
+There are config for slack instalation
+
+
+#Instalation ->
+sudo snap install slack --classic

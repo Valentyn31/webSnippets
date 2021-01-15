@@ -1,0 +1,9 @@
+#There are steps 
+for istalation trello in Ubuntu 20.04
+
+#First go to https://github.com/Racle/trello-desktop/releases
+#And download new version of trello.zip
+#Move archive to home directory
+#next in terminal run
+ sudo unzip Trello-linux-x.x.x.zip -d /opt/trello/
+ sudo apt-get install libgconf2-4

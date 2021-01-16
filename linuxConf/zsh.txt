@@ -1,0 +1,35 @@
+#This is steps for instalation and configuration zsh
+#
+#Instalation:
+
+sudo apt install zsh
+zsh --version
+echo $SHELL
+
+#Setup zsh as default shell
+chsh -s /usr/bin/zsh
+
+#If zsh settings terminal opened - setting up it
+#else run zsh and configurate it
+#
+#Next step is Oh my zsh instalation, run:
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+#Then open .zshrc and set ZSH_THEME="edvardm" for select realy nice theme and after it set plugins=(git zsh-syntax-highlighting zsh-autosuggestions autojump)
+#
+#Go to directory .oh-my-zsh and open themes, edvardm and change theme info for:
+
+PROMPT='%{$fg_bold[blue]%}➜ %{$fg_bold[red]%}$(git_prompt_info) %{$reset_color%}'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[blue]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="*%{$fg[red]%})%{$fg_bold[blue]%}➜ %{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="*%{$fg[red]%})%{$fg_bold[blue]%}➜"
+
+#Next go to https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins and download plugins
+#We need install autojump - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/autojump,
+#zsh-syntax-highlighting - https://github.com/zsh-users/zsh-syntax-highlighting,
+#zsh-autosuggestions - https://github.com/zsh-users/zsh-autosuggestions
+#Hust clone this git reposetories in .oh-my-zsh/plugins/
+
+#Congratulation!!!!

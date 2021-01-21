@@ -29,12 +29,33 @@ const optimization = () => {
     return config
 }
 
+const babelOptions = preset => {
+    const opts = {
+        presets: [
+            '@babel/preset-env'
+        ],
+        plugins: [
+            '@babel/plugin-proposal-class-properties'
+        ]
+    }
+
+    if (preset) {
+        opts.presets.push(preset)
+    }
+
+    return opts
+}
+
+
 /*
 -- WebPack functions --
  */
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    entry: '/main.js',
+    entry: {
+        bundle: ['@babel/polyfill', '/main.js'],
+        type: ['@babel/polyfill', '/assets/js/index.ts'],
+    },
     mode: "development",
     optimization: optimization(),
     devServer: {
@@ -42,7 +63,7 @@ module.exports = {
         hot: isDev
     },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
@@ -75,7 +96,23 @@ module.exports = {
                     // Compiles Sass to CSS
                     "sass-loader",
                 ],
-            }
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: babelOptions()
+                }
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: babelOptions('@babel/preset-typescript')
+                }
+            },
         ]
     }
 };

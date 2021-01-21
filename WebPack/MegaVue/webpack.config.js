@@ -46,6 +46,18 @@ const babelOptions = preset => {
     return opts
 }
 
+const jsLoaders = () => {
+    const loaders = [{
+        loader: 'babel-loader',
+        options: babelOptions()
+    }]
+
+    if (isDev) {
+        loaders.push('eslint-loader')
+    }
+
+    return loaders
+}
 
 /*
 -- WebPack functions --
@@ -57,6 +69,7 @@ module.exports = {
         type: ['@babel/polyfill', '/assets/js/index.ts'],
     },
     mode: "development",
+    devtool: isDev ? 'source-map' : '',
     optimization: optimization(),
     devServer: {
         port: 4200,
@@ -100,18 +113,12 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: babelOptions()
-                }
+                use: jsLoaders()
             },
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: babelOptions('@babel/preset-typescript')
-                }
+                use: jsLoaders('@babel/preset-typescript')
             },
         ]
     }

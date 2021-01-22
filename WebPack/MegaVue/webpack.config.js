@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
+const Autoprefixer = require('autoprefixer');
 
 /*
 -- Custom functions --
@@ -59,6 +60,47 @@ const jsLoaders = () => {
     return loaders
 }
 
+const tsLoaders = () => {
+    const loaders = [{
+        loader: 'babel-loader',
+        options: babelOptions('@babel/preset-typescript')
+    }]
+
+    if (isDev) {
+        loaders.push('eslint-loader')
+    }
+
+    return loaders
+}
+
+const stylesLoaders = () => {
+    const loaders = [
+        // Creates `style` nodes from JS strings
+        MiniCssExtractPlugin.loader,
+        // Translates CSS into CommonJS
+        'css-loader',
+    ]
+    // Add autoprefixer
+    if (isProd) {
+        loaders.push(
+            {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        plugins: [
+                            Autoprefixer()
+                        ],
+                    },
+                }
+            }
+        )
+    }
+    // Compiles Sass to CSS
+    loaders.push('sass-loader')
+
+    return loaders
+}
+
 /*
 -- WebPack functions --
  */
@@ -66,10 +108,10 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
         bundle: ['@babel/polyfill', '/main.js'],
-        type: ['@babel/polyfill', '/assets/js/index.ts'],
+        type: ['/assets/js/index.ts'],
     },
-    mode: "development",
-    devtool: isDev ? 'source-map' : '',
+    mode: 'development',
+    devtool: isDev ? 'source-map': false,
     optimization: optimization(),
     devServer: {
         port: 4200,
@@ -88,7 +130,7 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, 'src/assets/images'),
-                    to: "assets/images"
+                    to: 'assets/images'
                 },
             ],
         }),
@@ -101,14 +143,8 @@ module.exports = {
         rules: [
             {
                 test: /\.s[ac]ss$/,
-                use: [
-                    // Creates `style` nodes from JS strings
-                    MiniCssExtractPlugin.loader,
-                    // Translates CSS into CommonJS
-                    "css-loader",
-                    // Compiles Sass to CSS
-                    "sass-loader",
-                ],
+                exclude: /node_modules/,
+                use: stylesLoaders()
             },
             {
                 test: /\.js$/,
@@ -118,7 +154,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
-                use: jsLoaders('@babel/preset-typescript')
+                use: tsLoaders()
             },
         ]
     }

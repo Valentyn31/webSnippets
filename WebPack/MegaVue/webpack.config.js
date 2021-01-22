@@ -13,6 +13,8 @@ const Autoprefixer = require('autoprefixer');
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
+const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
+
 const optimization = () => {
     const config = {
         splitChunks: {
@@ -118,7 +120,7 @@ module.exports = {
         hot: isDev
     },
     output: {
-        filename: '[name].js',
+        filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
@@ -126,17 +128,16 @@ module.exports = {
             template: '/index.html'
         }),
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, 'src/assets/images'),
-                    to: 'assets/images'
-                },
-            ],
-        }),
+        // new CopyWebpackPlugin({
+        //     patterns: [
+        //         {
+        //             from: path.resolve(__dirname, 'src/assets/images'),
+        //             to: 'assets/images'
+        //         },
+        //     ],
+        // }),
         new MiniCssExtractPlugin({
-            filename: 'assets/css/style.css',
-
+            filename: isDev ? 'assets/css/style.css' : 'assets/css/style.[hash].css'
         }),
     ],
     module: {
@@ -155,6 +156,22 @@ module.exports = {
                 test: /\.ts$/,
                 exclude: /node_modules/,
                 use: tsLoaders()
+            },
+            {
+                test: /\.(png|jpe?g|svg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/images/[name].webp'
+                        }
+                    },
+                    'webp-loader?{quality: 75}',
+                ]
+            },
+            {
+                test: /\.(ttf|woff|woff2|eot)$/,
+                use: ['file-loader']
             },
         ]
     }

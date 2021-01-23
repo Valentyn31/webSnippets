@@ -116,7 +116,11 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 4200,
-        hot: isDev
+        static: [ 
+            {
+                watch: true
+            }
+        ]
     },
     output: {
         filename: filename('js'),

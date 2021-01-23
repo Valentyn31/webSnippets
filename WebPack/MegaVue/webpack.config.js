@@ -110,7 +110,6 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
         bundle: ['@babel/polyfill', '/main.js'],
-        type: ['/assets/js/index.ts'],
     },
     mode: 'development',
     devtool: isDev ? 'source-map': false,

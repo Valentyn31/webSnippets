@@ -78,7 +78,17 @@ const tsLoaders = () => {
 const stylesLoaders = () => {
     const loaders = [
         // Creates `style` nodes from JS strings
-        MiniCssExtractPlugin.loader,
+        {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                publicPath: (resourcePath, context) => {
+                    // publicPath is the relative path of the resource to the context
+                    // e.g. for ./css/admin/main.css the publicPath will be ../../
+                    // while for ./css/main.css the publicPath will be ../
+                    return path.relative(path.dirname(resourcePath), context) + '/';
+                  },
+            }
+        },
         // Translates CSS into CommonJS
         'css-loader',
     ]

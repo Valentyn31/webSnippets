@@ -62,23 +62,20 @@ const jsLoaders = () => {
     return loaders
 }
 
-const tsLoaders = () => {
-    const loaders = [{
-        loader: 'babel-loader',
-        options: babelOptions('@babel/preset-typescript')
-    }]
-
-    if (isDev) {
-        loaders.push('eslint-loader')
-    }
-
-    return loaders
-}
-
 const stylesLoaders = () => {
     const loaders = [
         // Creates `style` nodes from JS strings
-        MiniCssExtractPlugin.loader,
+        {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                publicPath: (resourcePath, context) => {
+                    // publicPath is the relative path of the resource to the context
+                    // e.g. for ./css/admin/main.css the publicPath will be ../../
+                    // while for ./css/main.css the publicPath will be ../
+                    return path.relative(path.dirname(resourcePath), context) + '/';
+                  },
+            }
+        },
         // Translates CSS into CommonJS
         'css-loader',
     ]
@@ -154,11 +151,6 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: jsLoaders()
-            },
-            {
-                test: /\.ts$/,
-                exclude: /node_modules/,
-                use: tsLoaders()
             },
             {
                 test: /\.(png|jpe?g|svg|gif)$/,

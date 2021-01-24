@@ -1,2 +1,2 @@
-import './assets/js/index.ts'
+import './assets/js/index.js'
 import './assets/sass/style.scss'

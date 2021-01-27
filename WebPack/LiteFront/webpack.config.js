@@ -113,11 +113,7 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 4200,
-        static: [ 
-            {
-                watch: true
-            }
-        ]
+        host: 'localhost'
     },
     output: {
         filename: filename('js'),

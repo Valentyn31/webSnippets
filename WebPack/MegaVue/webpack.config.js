@@ -1,11 +1,12 @@
-const path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
-const Autoprefixer = require('autoprefixer');
+const Autoprefixer = require('autoprefixer')
 
 /*
 -- Custom functions --
@@ -126,11 +127,6 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 4200,
-        static: [ 
-            {
-                watch: true
-            }
-        ]
     },
     output: {
         filename: filename('js'),
@@ -152,7 +148,17 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: isDev ? 'assets/css/style.css' : 'assets/css/style.[hash].css'
         }),
+        new webpack.DefinePlugin({
+            // Drop Options API from bundle
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false
+        }),
     ],
+    resolve: {
+        alias: {
+            'vue': 'vue/dist/vue.esm-bundler.js'
+        }
+    },
     module: {
         rules: [
             {

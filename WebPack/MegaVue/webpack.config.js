@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
 const Autoprefixer = require('autoprefixer')
+const {VueLoaderPlugin} = require('vue-loader')
 
 /*
 -- Custom functions --
@@ -154,6 +155,7 @@ module.exports = {
             __VUE_OPTIONS_API__: true,
             __VUE_PROD_DEVTOOLS__: false
         }),
+        new VueLoaderPlugin()
     ],
     resolve: {
         alias: {
@@ -176,6 +178,10 @@ module.exports = {
                 test: /\.ts$/,
                 exclude: /node_modules/,
                 use: tsLoaders()
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             },
             {
                 test: /\.(png|jpe?g|svg|gif)$/,

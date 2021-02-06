@@ -1,17 +1,7 @@
 import * as Vue from 'vue'
+import hello from '../components/App.vue'
 
-const app = Vue.createApp({
-    data() {
-        return {
-            text: 'myText'
-        }
-    },
-    methods: {
-        changeText() {
-            this.text += ' ' + this.text
-        }
-    }
-})
+const app = Vue.createApp(hello)
 
 app.mount('#main');
 

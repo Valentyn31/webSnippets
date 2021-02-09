@@ -1,7 +1,7 @@
 import * as Vue from 'vue'
-import hello from '../components/App.vue'
+import App from '../components/App.vue'
 
-const app = Vue.createApp(hello)
+const app = Vue.createApp(App)
 
-app.mount('#main');
+app.mount('#app')
 

@@ -128,7 +128,8 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 4200,
-        host: 'localhost'
+        host: 'localhost',
+        hot: true
     },
     output: {
         filename: filename('js'),

@@ -8,10 +8,10 @@ echo $SHELL
 
 #Setup zsh as default shell
 chsh -s /usr/bin/zsh
+run zsh and configurate it
+#For set changes you must LOG OUT (Power oFF/Log Out -> Log Out)
+#And then login again
 
-#If zsh settings terminal opened - setting up it
-#else run zsh and configurate it
-#
 #Next step is Oh my zsh instalation, run:
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -23,13 +23,29 @@ PROMPT='%{$fg_bold[blue]%}➜ %{$fg_bold[red]%}$(git_prompt_info) %{$reset_color
 
 ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[blue]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="*%{$fg[red]%})%{$fg_bold[blue]%}➜ %{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="*%{$fg[red]%})%{$fg_bold[bluels]%}➜ %{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="*%{$fg[red]%})%{$fg_bold[blue]%}➜"
 
 #Next go to https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins and download plugins
-#We need install autojump - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/autojump,
 #zsh-syntax-highlighting - https://github.com/zsh-users/zsh-syntax-highlighting,
+#Clone this repository in oh-my-zsh's plugins directory:
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 #zsh-autosuggestions - https://github.com/zsh-users/zsh-autosuggestions
-#Hust clone this git reposetories in .oh-my-zsh/plugins/
+#Clone this repository into $ZSH_CUSTOM/plugins (by default ~/.oh-my-zsh/custom/plugins)
+git clone https://github.com/zsh-users/zsh-autosuggestions.git
+
+#Adding aliases
+# SYSTEM aliases:
+alias sites="cd /var/www/"
+alias lll="ls -lah"
+# GIT aliases
+alias gas="git status"
+alias gad="git add ."
+alias got="git commit -m"
+alias gus="git push"
+alias gul="git pull"
+alias gif="git fetch"
+alias gim="git merge"
+
 
 #Congratulation!!!!

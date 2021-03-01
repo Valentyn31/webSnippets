@@ -1,0 +1,19 @@
+#Welcome in lamp instalation!!
+#Get started!
+
+#APACHE2
+sudo apt install apache2 
+sudo ufw enable
+sudo ufw allow in "Apache"
+sudo ufw status   
+
+#MYSQL
+sudo apt install mysql-server 
+sudo mysql_secure_installation
+#You must set LOW passworrd and enter y everytime
+
+#PHP
+sudo apt install php libapache2-mod-php php-mysql
+php -v
+
+#Completed

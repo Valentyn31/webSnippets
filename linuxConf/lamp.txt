@@ -11,7 +11,9 @@ sudo ufw status
 sudo apt install mysql-server 
 sudo mysql_secure_installation
 #You must set LOW passworrd and enter y everytime
-
+#Creating new user
+CREATE USER 'validol'@'localhost' IDENTIFIED BY 'Pvv_161718';
+GRANT ALL PRIVILEGES ON * . * TO 'validol'@'localhost';
 #PHP
 sudo apt install php libapache2-mod-php php-mysql
 php -v

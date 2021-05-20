@@ -1,0 +1,64 @@
+@import "../vars/colors.scss";
+@import "../vars/mixins.scss";
+
+@media (max-width: 991px) {
+  .burger {
+    width: 36px;
+    height: 36px;
+    background: $burger_bg;
+    border-radius: 13px;
+    border: 1px solid $sitebg;
+    position: fixed;
+    @include flex;
+    z-index: 10;
+    cursor: pointer;
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 70%;
+      height: 2px;
+      background: $burger_line;
+      transition: opacity 0.2s linear 0.3s;
+    }
+    &::before {
+      top: 8px;
+    }
+    &::after {
+      bottom: 8px;
+    }
+    &__line {
+      display: inline-block;
+      position: absolute;
+      width: 70%;
+      height: 2px;
+      background: $burger_line;
+      transform-origin: center;
+      transition: transform 0.3s linear 0.1s;
+    }
+  }
+  // If menu is open
+  .burger.active {
+    background: transparent;
+    right: 40px;
+    top: 55px;
+    &::before, &::after {
+      opacity: 0;
+    }
+    .burger__line {
+      background: $burger_line_active;
+      &:first-child {
+        transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .burger.active {
+    right: 24px;
+    top: 55px;
+  }
+}

@@ -1,0 +1,9 @@
+@import "./vendors.scss";
+@import "fonts/montserrat";
+@import "vars/fonts";
+
+// components
+@import "components/burger";
+
+// media queries for the page
+@import "media/home.scss";

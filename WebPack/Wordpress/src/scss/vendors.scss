@@ -1,0 +1,34 @@
+@import "vars/colors";
+@import "vars/mixins";
+@import "vars/fonts";
+@import "fonts/roboto";
+@import "~normalize.css/normalize.css";
+
+body {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: $sitebg;
+  font-size: 16px;
+  font-family: $roboto;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
